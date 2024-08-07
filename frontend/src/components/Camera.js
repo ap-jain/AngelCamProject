@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "./Axios";
 import { useToken } from "../TokenContext";
@@ -10,11 +10,11 @@ import { startOfToday } from "date-fns";
 import Hls from "hls.js";
 const Camera = () => {
   const { id } = useParams();
-  const { token, userData } = useToken();
-  const [camera, setCamera] = useState(null); 
+  const { token } = useToken();
+  const [camera, setCamera] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [recordingError, setRecordingError] = useState("");
+  const [setRecordingError] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [segments, setSegments] = useState([]);
   const { saveCameraData, cameraData } = useToken();
@@ -23,9 +23,9 @@ const Camera = () => {
   const [isPlayingRecording, setIsPlayingRecording] = useState(false);
   const [fetchingData, setfetchingData] = useState(false);
 
-  useEffect(() => {    
-    if(isPlayingRecording===true){
-      return
+  useEffect(() => {
+    if (isPlayingRecording === true) {
+      return;
     }
     setStreamUrl("");
     setIsPlayingRecording(false);
@@ -51,14 +51,13 @@ const Camera = () => {
       } catch (err) {
         console.error("Error fetching initial data:", err);
         setError("Error fetching initial data");
-      } finally {        
+      } finally {
       }
     };
 
     fetchData();
 
-    return () => {
-    };
+    return () => {};
   }, [id, token, isPlayingRecording]);
   const handleDateChange = async (date) => {
     setfetchingData(true);
@@ -118,7 +117,7 @@ const Camera = () => {
     });
     const { url } = response.data;
     setStreamUrl(url);
-    setIsPlayingRecording(true); 
+    setIsPlayingRecording(true);
     setTimeout(() => {
       let video = document.getElementById("recording");
       if (video) {
@@ -133,7 +132,7 @@ const Camera = () => {
 
   const handleBackToLiveStream = async () => {
     setIsPlayingRecording(false);
-    setStreamUrl(null);    
+    setStreamUrl(null);
   };
   const columns = [
     {

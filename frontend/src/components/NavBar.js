@@ -11,13 +11,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
-import { useToken } from "../TokenContext"; // Import the useToken hook
+import { useToken } from "../TokenContext";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 export default function NavBar(props) {
@@ -25,9 +22,9 @@ export default function NavBar(props) {
   const location = useLocation();
   const path = location.pathname;
   const [open, setOpen] = React.useState(false);
-  const { token, userData } = useToken(); // Get the token and userData from context
+  const { userData } = useToken(); 
   const { cameraData } = useToken();
-  const cameras = cameraData.cameras || []; // Access cameras from userData
+  const cameras = cameraData.cameras || [];
 
   const handleClick = () => {
     setOpen(!open);
@@ -84,9 +81,7 @@ export default function NavBar(props) {
         <Box sx={{ overflow: "auto" }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton                
-                onClick={handleClick}
-              >
+              <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
                   <CameraAltIcon />
                 </ListItemIcon>
